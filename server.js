@@ -41,5 +41,4 @@ app.use('/api/posts', postsRoutes)
 
 app.use('/api/comments', commentRoutes)
 
-app.use('/api/generate')
 
