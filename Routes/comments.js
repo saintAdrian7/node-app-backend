@@ -1,11 +1,12 @@
 const express = require('express')
-
 const router = express.Router()
+
 
 const{createComment, getAllComments, deleteComment, updateComment} = require('../controller/comments')
 
 
-router.get('/', getAllComments)
+
+router.get('/:postId/', getAllComments)
 
 router.post('/', createComment)
 

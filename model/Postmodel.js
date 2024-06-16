@@ -15,13 +15,9 @@ const PostsSchema = new Schema({
     author: {
        type:Schema.Types.ObjectId,
        ref:'User',
-       required: true
+      
        
     },
-    comments: [{
-        type:Schema.Types.ObjectId,
-        ref:'Comment'
-    }],
     likes: {
         type: Number,
         default: 0
@@ -31,6 +27,7 @@ const PostsSchema = new Schema({
         enum: ['published', 'draft', 'archived'],
         default: 'draft',
       },
+      image: { type: String }
 },{timestamps:true})
 
 

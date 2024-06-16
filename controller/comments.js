@@ -2,32 +2,33 @@ const mongoose  = require('mongoose')
 const Comment = require('../model/Commentmodel')
 const Posts = require('../model/Postmodel')
 
-const getAllComments = async (req,res) =>{
-    try{
-        const comments = await Comment.find({}).sort({createdAt: -1})
-        res.status(200).json(comments)
-    }
-    catch(error){
-        res.status(500).json({msg:error.message})
+const getAllComments = async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+
+        const comments = await Comment.find({ postId }).sort({ createdAt: -1 });
+
+        
+        res.status(200).json(comments);
+    } catch (error) {
+        
+        res.status(500).json({ error: 'Failed to fetch comments', message: error.message });
     }
 }
-
 const createComment = async (req,res) =>{
-    const{content, author, post} = req.body
-    const postToComment = Posts.findById(post)
-   
-    if(!content || !author || !post){
-       return  res.status(400).json({msg:"Please provide with all the fields"})
+    const { content, author, postId } = req.body;
+
+    if (!content ||!author ||!postId) {
+      return res.status(400).json({ error: 'Please provide all required fields' });
     }
-    if(!postToComment){
-        return res.status(404).json({msg:"the post does not exist"})
-    }
-    try{
-        const newComment = await Comment.create({content, author, post})
-        res.status(200).json(newComment)
-    }
-    catch(error){
-        res.status(500).json({msg:error.message})
+    const post = postId
+  
+    try {
+      const newComment = await Comment.create({ content, author, post });
+      res.status(201).json({ message: 'Comment created successfully' });
+    } catch (error) {
+      res.status(500).json({ error: { message: error.message } });
     }
 }
 
