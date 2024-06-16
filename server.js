@@ -12,7 +12,7 @@ app.use(cors({ origin: 'https://node-app-frontend.onrender.com' }));
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
-app.use(express.urlencoded({ extended: true }));G
+app.use(express.urlencoded({ extended: true }))
 
 /*connecting to the database */
 mongoose.connect(process.env.MONGO_URI)
