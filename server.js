@@ -8,11 +8,11 @@ const postsRoutes = require('./Routes/posts')
 const authRoutes = require('./Routes/auth')
 const commentRoutes = require('./Routes/comments')
 
-app.use(cors());
+app.use(cors({ origin: 'https://node-app-frontend.onrender.com' }));
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));G
 
 /*connecting to the database */
 mongoose.connect(process.env.MONGO_URI)
