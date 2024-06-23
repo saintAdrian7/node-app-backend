@@ -8,12 +8,13 @@ const jwt = require('jsonwebtoken');
 
 const signUp =  async (req,res) => {
     const {username, email, password} = req.body
+    console.log({username, email, password})
     try{
         const newUser = await User.create({username, email, password})
         const token = jwt.sign(
-            { userId: newUser._id, email: newUser.email },
+            { userId: newUser._id},
             process.env.JWT_SECRET, 
-            { expiresIn: '1000h' } 
+            { expiresIn: '1000000h' } 
           );
         res.status(201).json({ token, userId: newUser._id });
     
@@ -25,6 +26,7 @@ const signUp =  async (req,res) => {
 const login = async (req,res) => {
     try{
         const{email, password} = req.body
+        console.log({email,password})
         const user = await User.findOne({email})
         if(!user){
            return res.status(400).json({msg:'The user does not exist,invalid credintials'})
@@ -34,7 +36,7 @@ const login = async (req,res) => {
             return res.status(400).json({msg:'Wrong password.Try again!'})
         }
 
-    const token = jwt.sign({ userId: user._id },  process.env.JWT_SECRET, { expiresIn: '1000h' });
+    const token = jwt.sign({ userId: user._id },  process.env.JWT_SECRET, { expiresIn: '100000h' });
     res.status(201).json({ token, userId: user._id });
     }
     catch(error){

@@ -22,6 +22,10 @@ const PostsSchema = new Schema({
         type: Number,
         default: 0
     },
+    likedBy:[{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    }],
     status: {
         type: String,
         enum: ['published', 'draft', 'archived'],

@@ -7,9 +7,8 @@ const getAllComments = async (req, res) => {
 
     try {
 
-        const comments = await Comment.find({ postId }).sort({ createdAt: -1 });
+      const comments = await Comment.find({ post: postId }).sort({ createdAt: -1 }).populate('author', 'username ');
 
-        
         res.status(200).json(comments);
     } catch (error) {
         

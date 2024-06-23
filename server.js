@@ -8,7 +8,13 @@ const postsRoutes = require('./Routes/posts')
 const authRoutes = require('./Routes/auth')
 const commentRoutes = require('./Routes/comments')
 
-app.use(cors({ origin: 'https://node-app-frontend.onrender.com' }));
+const corsOptions = {
+    origin: 'https://node-app-frontend.onrender.com',
+    optionsSuccessStatus: 200 
+  };
+  
+  app.use(cors(corsOptions));
+  
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
