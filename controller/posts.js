@@ -5,7 +5,7 @@ const User = require('../model/Usermodel');
 /* Getting all posts */
 const getAllPosts = async (req, res) => {
   try {
-    const allPosts = await Posts.find({}).sort({ createdAt: -1 }).populate('author', 'username image');
+    const allPosts = await Posts.find({}).sort({ createdAt: -1 }).populate('author', 'username ');
     res.status(200).json(allPosts);
   } catch (error) {
     res.status(500).json({ msg: `server error: ${error}` });
